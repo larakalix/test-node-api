@@ -1,16 +1,17 @@
-import { Router } from 'express';
-import * as ctrl from '../controllers/product.controller';
+import { Router } from "express";
+import * as ctrl from "../controllers/product.controller";
+import { verifyToken, isAdmin, isMod } from "../middleware/index";
 
 const router = Router();
 
-router.get('/', ctrl.getProducts);
+router.get("/", ctrl.getProducts);
 
-router.get('/:id', ctrl.getProductById);
+router.get("/:id", ctrl.getProductById);
 
-router.post('/', ctrl.createProduct);
+router.post("/", [verifyToken, isAdmin, isMod], ctrl.createProduct);
 
-router.put('/:id', ctrl.updateProductById);
+router.put("/:id", [verifyToken, isAdmin], ctrl.updateProductById);
 
-router.delete('/:id', ctrl.deleteProductById);
+router.delete("/:id", [verifyToken, isAdmin], ctrl.deleteProductById);
 
 export default router;

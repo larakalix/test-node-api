@@ -4,15 +4,16 @@ export const createProduct = async (req, res) => {
 
     const { body: { name, category, price, image} } = req;
     const product = new Product({ name, category, price, image });
+    const newProduct = await product.save();
+    console.log('newProduct', newProduct)
 
-    res.status(201).json(product);
+    res.status(200).json(newProduct);
 }
 
 export const updateProductById = async (req, res) => {
 
     const { id } = req.params;
     const { body: { name, category, price, image} } = req;
-
     const product = await Product.findByIdAndUpdate(id, { name, category, price, image }, { new: true });
 
     res.status(200).json(product);
