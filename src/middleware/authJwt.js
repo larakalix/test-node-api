@@ -46,8 +46,6 @@ const validateRole = async (req, res, next, role) => {
             .status(403)
             .json({ message: `Only users with ${role} role can access` });
     } catch (error) {
-        return res
-            .status(500)
-            .json({ message: error });
+        return res.status(500).json({ message: error });
     }
 };
